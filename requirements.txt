@@ -1,0 +1,6 @@
+torch==1.13.1+cu117
+numpy==1.21.5
+pandas==1.2.4
+transformers==4.26.1
+datasets==2.10.1
+evaluate==0.4.0
