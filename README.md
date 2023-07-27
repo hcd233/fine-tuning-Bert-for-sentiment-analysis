@@ -1,6 +1,6 @@
 # 基于bert微调的中文情感分析
 ## 简介
-*使用huggingface的库，对预先训练的BERT模型对中文文本进行情感分析。
+* 使用Bert-base-Chinese，对微博评论数据集进行情感分类，分别是[积极/消极]。
 ## Change Logs
 * [2023/7/27] The script **train.py** supports **parse arguments**. Now you can run the train.py in CLI with the arguments you set
 ## Requirements
@@ -8,7 +8,9 @@
 pip install -r requirements.txt
 ~~~
 ## Dataset
-使用WeiboSenti100k数据集，该数据集包含在中/数据集文件夹。该数据集包含10万条中国微博帖子，每条帖子都被标记为正面或负面。
+使用[WeiboSenti100k](https://huggingface.co/datasets/dirtycomputer/weibo_senti_100k)数据集，该数据集包含在./dataset。
+该数据集包含10万条中国微博帖子，每条帖子都被标记为正面或负面。
+
 ## Usage
 * ### train
     **run the CLI** 
