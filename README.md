@@ -1,8 +1,9 @@
 # 基于bert微调的中文情感分析
 ## 简介
-*使用huggingface的库，对预先训练的BERT模型对中文文本进行情感分析。*
+*使用huggingface的库，对预先训练的BERT模型对中文文本进行情感分析。
+## Change Logs
+* [2023/7/27] The script **train.py** supports **parse arguments**. Now you can run the train.py in CLI with the arguments you set
 ## Requirements
-python version : python == 3.9.13
 ~~~shell
 pip install -r requirements.txt
 ~~~
@@ -10,25 +11,46 @@ pip install -r requirements.txt
 使用WeiboSenti100k数据集，该数据集包含在中/数据集文件夹。该数据集包含10万条中国微博帖子，每条帖子都被标记为正面或负面。
 ## Usage
 * ### train
+    **run the CLI** 
     ~~~shell
-        python train-hf.py
+        python train.py <Args>
     ~~~
-    The code will train the model using the first 80,000 samples of the dataset and evaluate it on the next 20,000 samples. Finally, it will test the model on the remaining samples. The trained model will be saved in the ./checkpoints folder.
+    **or**
+    ```shell
+        accelerate launch train.py <Args>
+    ```
+    **Args**
+    * -o, --output_checkpoints=OUTPUT_CHECKPOINTS
+        Default: './checkpoints'
+        "the dir where you want to save checkpoints ."
+    * -m, --model_path=MODEL_PATH
+        Default: 'bert-base-chinese'
+        "name of huggingface repo or a local model dir"
+    * -d, --dataset_path=DATASET_PATH
+        Default: './dataset/weibo_se...
+        "the dataset dir"
+    * -l, --learning_rate=LEARNING_RATE
+        Default: 2e-05
+    * -b, --batch_size=BATCH_SIZE
+        Default: 80
+    * -e, --epoch=EPOCH
+        Default: 5
+    * --weight_decay=WEIGHT_DECAY
+        Default: 0.02
+    * --warmup_ratio=WARMUP_RATIO
+        Default: 0.2
+    * -u, --use_gpu=USE_GPU
+        Default: '0'
+        "the indexes of gpus  you want to use. such as "0,1,2","0","1,3,6" etc."  
+
 * ### inference
-    ~~~shell
-        python inference.py -s "There input your sentence." # Inference for single sentence.
-    ~~~
-    ~~~shell
-        python inference.py -i True # Continuous inference.
-    ~~~
-## Train Hyperparameter
-* #### OUTPUT_PATH: path to save the trained model
-* #### MODEL_PATH: path to the pre-trained BERT model
-* #### DATASET_PATH: path to the dataset
-* #### LEARNING_RATE: learning rate of the optimizer
-* #### BATCH_SIZE: number of samples per batch
-* #### EPOCH: number of epochs to train the model
-* #### WEIGHT_DECAY: weight decay of the optimizer
+  ~~~shell
+      python inference.py -s "There input your sentence." # Inference for single sentence.
+  ~~~
+  ~~~shell
+      python inference.py -i True # Continuous inference.
+  ~~~
+
 ## Related Docs
 * *<a href="https://huggingface.co/docs">HuggingFace Docs</a>*
 * *<a href="https://pytorch.org/docs/stable/index.html">Pytorch Docs</a>*
